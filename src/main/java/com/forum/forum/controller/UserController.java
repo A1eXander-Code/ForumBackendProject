@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.forum.forum.services.UserService;
 import com.forum.forum.dto.UserLoginRequest;
 import com.forum.forum.dto.UserRegisterRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
@@ -19,8 +20,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> RegisterResponse(@RequestBody UserRegisterRequest request) {
-        boolean result = userService.registerFunc(request);
+    public ResponseEntity<String> RegisterResponse(@Valid @RequestBody UserRegisterRequest request) {
+        boolean result = userService.register(request);
         if(result == true){
             return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
         }else{
@@ -29,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> LoginResponse(@RequestBody UserLoginRequest request) {
-        boolean result = userService.loginFunc(request);
+    public ResponseEntity<String> LoginResponse(@Valid @RequestBody UserLoginRequest request) {
+        boolean result = userService.login(request);
         if(result == true){
             return ResponseEntity.status(HttpStatus.OK).body("User logged in successfully.");
         }else{
