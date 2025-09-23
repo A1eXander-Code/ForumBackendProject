@@ -14,8 +14,8 @@ public class UserService {
     
     private Map<String, User> database = new HashMap<>();
 
-    public boolean registerFunc(UserRegisterRequest request){
-        if(database.containsKey(request.getUsername()) == true){
+    public boolean register(UserRegisterRequest request){
+        if(database.containsKey(request.getUsername())){
             return false;
         }
         
@@ -27,8 +27,8 @@ public class UserService {
         return true;
     }
 
-    public boolean loginFunc(UserLoginRequest request){
-        if(database.containsKey(request.getUsername()) == false){
+    public boolean login(UserLoginRequest request){
+        if(!database.containsKey(request.getUsername())){
             return false;
         }
 
