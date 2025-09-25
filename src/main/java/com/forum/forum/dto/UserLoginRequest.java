@@ -1,6 +1,7 @@
 package com.forum.forum.dto;
 
 import lombok.Data;
+<<<<<<< HEAD
 import lombok.ToString;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,4 +18,11 @@ public class UserLoginRequest {
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;    
+=======
+
+@Data
+public class UserLoginRequest {
+    String username;
+    String password;    
+>>>>>>> 259aaeb (Restore project without security config)
 }

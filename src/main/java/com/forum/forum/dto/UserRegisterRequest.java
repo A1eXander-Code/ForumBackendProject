@@ -1,6 +1,7 @@
 package com.forum.forum.dto;
 
 import lombok.Data;
+<<<<<<< HEAD
 import lombok.ToString;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,4 +22,12 @@ public class UserRegisterRequest {
     @NotBlank(message="Email is required.")
     @Size(min = 5, max = 50, message = "Email must be 5~50 characters.")
     private String email;
+=======
+
+@Data
+public class UserRegisterRequest {
+    String username;
+    String password;
+    String email;    
+>>>>>>> 259aaeb (Restore project without security config)
 }
