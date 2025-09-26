@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.forum.forum.services.UserService;
+import com.forum.forum.service.UserService;
 import com.forum.forum.dto.UserLoginRequest;
 import com.forum.forum.dto.UserRegisterRequest;
 
@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> RegisterResponse(@RequestBody UserRegisterRequest request) {
-        boolean result = userService.registerFunc(request);
+        boolean result = userService.register(request);
         if(result == true){
             return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
         }else{
@@ -30,7 +30,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> LoginResponse(@RequestBody UserLoginRequest request) {
-        boolean result = userService.loginFunc(request);
+        boolean result = userService.login(request);
         if(result == true){
             return ResponseEntity.status(HttpStatus.OK).body("User logged in successfully.");
         }else{

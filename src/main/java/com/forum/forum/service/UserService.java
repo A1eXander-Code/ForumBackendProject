@@ -1,4 +1,4 @@
-package com.forum.forum.services;
+package com.forum.forum.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class UserService {
     
     private Map<String, User> database = new HashMap<>();
 
-    public boolean registerFunc(UserRegisterRequest request){
+    public boolean register(UserRegisterRequest request){
         if(database.containsKey(request.getUsername()) == true){
             return false;
         }
@@ -22,12 +22,13 @@ public class UserService {
         User newUser = new User();
         newUser.setUsername(request.getUsername());
         newUser.setPassword(request.getPassword());
+        newUser.setEmail(request.getEmail());
         database.put(newUser.getUsername(), newUser);
 
         return true;
     }
 
-    public boolean loginFunc(UserLoginRequest request){
+    public boolean login(UserLoginRequest request){
         if(database.containsKey(request.getUsername()) == false){
             return false;
         }
