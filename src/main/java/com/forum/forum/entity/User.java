@@ -1,4 +1,4 @@
-package com.forum.forum.model;
+package com.forum.forum.entity;
 
 import lombok.Data;
 

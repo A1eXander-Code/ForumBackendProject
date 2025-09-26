@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.forum.forum.dto.UserLoginRequest;
 import com.forum.forum.dto.UserRegisterRequest;
-import com.forum.forum.model.User;
+import com.forum.forum.entity.User;
 
 import org.springframework.stereotype.Service;
 
