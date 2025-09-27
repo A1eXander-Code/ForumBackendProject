@@ -2,42 +2,49 @@ package com.forum.forum.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
+import com.forum.forum.controller.UserController;
 import com.forum.forum.dto.UserLoginRequest;
 import com.forum.forum.dto.UserRegisterRequest;
 import com.forum.forum.entity.User;
+import com.forum.forum.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    
-    private Map<String, User> database = new HashMap<>();
+    private final UserRepository userRepository;
 
-    public boolean register(UserRegisterRequest request){
-        if(database.containsKey(request.getUsername()) == true){
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public boolean register(UserRegisterRequest request) {
+        if (request == null || request.getUsername() == null || request.getUsername().isEmpty()
+                || userRepository.existsByUsername(request.getUsername())) {
             return false;
         }
-        
+
         User newUser = new User();
         newUser.setUsername(request.getUsername());
         newUser.setPassword(request.getPassword());
         newUser.setEmail(request.getEmail());
-        database.put(newUser.getUsername(), newUser);
+        userRepository.save(newUser);
 
         return true;
     }
 
-    public boolean login(UserLoginRequest request){
-        if(database.containsKey(request.getUsername()) == false){
+    public boolean login(UserLoginRequest request) {
+        if (request == null || request.getUsername() == null || request.getUsername().isEmpty()
+                || !userRepository.existsByUsername(request.getUsername())) {
             return false;
         }
 
-        User user = database.get(request.getUsername());
-        if(user.getPassword().equals(request.getPassword())){
-            return true;
-        }
+        Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
+        if(userOpt.isEmpty()) return false;
+        User user = userOpt.get();
 
-        return false;
+        return user.getPassword().equals(request.getPassword());
     }
 }
