@@ -29,7 +29,6 @@ public class UserService {
         User newUser = new User();
         newUser.setUsername(request.getUsername());
         newUser.setPassword(request.getPassword());
-        newUser.setEmail(request.getEmail());
         userRepository.save(newUser);
 
         return true;
@@ -42,7 +41,8 @@ public class UserService {
         }
 
         Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
-        if(userOpt.isEmpty()) return false;
+        if (userOpt.isEmpty())
+            return false;
         User user = userOpt.get();
 
         return user.getPassword().equals(request.getPassword());
