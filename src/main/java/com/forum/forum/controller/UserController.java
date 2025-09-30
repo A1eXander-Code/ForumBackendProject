@@ -21,9 +21,9 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> RegisterResponse(@RequestBody UserRegisterRequest request) {
         boolean result = userService.register(request);
-        if(result == true){
+        if (result) {
             return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User can't register.");
         }
     }
@@ -31,11 +31,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> LoginResponse(@RequestBody UserLoginRequest request) {
         boolean result = userService.login(request);
-        if(result == true){
+        if (result) {
             return ResponseEntity.status(HttpStatus.OK).body("User logged in successfully.");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User can not log in.");
         }
     }
 }
-
