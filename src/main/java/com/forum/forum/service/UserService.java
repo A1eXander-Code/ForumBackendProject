@@ -1,5 +1,6 @@
 package com.forum.forum.service;
 
+import java.lang.foreign.Linker.Option;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -20,10 +21,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean register(UserRegisterRequest request) {
+    public Optional<User> register(UserRegisterRequest request) {
         if (request == null || request.getUsername() == null || request.getUsername().isEmpty()
                 || userRepository.existsByUsername(request.getUsername())) {
-            return false;
+            return Optional.empty();
         }
 
         User newUser = new User();
@@ -31,20 +32,26 @@ public class UserService {
         newUser.setPassword(request.getPassword());
         userRepository.save(newUser);
 
-        return true;
+        return Optional.of(newUser);
     }
 
-    public boolean login(UserLoginRequest request) {
+    public Optional<User> login(UserLoginRequest request) {
         if (request == null || request.getUsername() == null || request.getUsername().isEmpty()
                 || !userRepository.existsByUsername(request.getUsername())) {
-            return false;
+            return Optional.empty();
         }
 
         Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
-        if (userOpt.isEmpty())
-            return false;
-        User user = userOpt.get();
 
-        return user.getPassword().equals(request.getPassword());
+        if(!userOpt.isEmpty()){
+            User user = userOpt.get();
+            if(user.getPassword().equals(request.getPassword())){
+                return userOpt;
+            }else{
+                return Optional.empty();
+            }
+        }else{
+            return Optional.empty();
+        }
     }
 }
