@@ -43,14 +43,14 @@ public class UserService {
 
         Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
 
-        if(!userOpt.isEmpty()){
+        if (!userOpt.isEmpty()) {
             User user = userOpt.get();
-            if(user.getPassword().equals(request.getPassword())){
+            if (user.getPassword().equals(request.getPassword())) {
                 return userOpt;
-            }else{
+            } else {
                 return Optional.empty();
             }
-        }else{
+        } else {
             return Optional.empty();
         }
     }

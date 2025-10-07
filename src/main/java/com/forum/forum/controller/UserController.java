@@ -25,29 +25,30 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<RegisterResponse>> RegisterResponse(@RequestBody UserRegisterRequest request) {
         return userService.register(request)
-            .map(user -> accountCreated(
-                RegistrationCode.REGISTER_SUCCESS,
-                "User account registered successfully",
-                RegisterResponse.from(user)))
-            .orElseGet(() -> registerConflict(
-                RegistrationCode.USERNAME_EXISTS, 
-                "Username exists"));
-        
+                .map(user -> accountCreated(
+                        RegistrationCode.REGISTER_SUCCESS,
+                        "User account registered successfully",
+                        RegisterResponse.from(user)))
+                .orElseGet(() -> registerConflict(
+                        RegistrationCode.USERNAME_EXISTS,
+                        "Username exists"));
+
     }
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> LoginResponse(@RequestBody UserLoginRequest request) {
         return userService.login(request)
-            .map(user -> accountLogin(
-                AuthCode.LOGIN_SUCCESS, 
-                "User logged in successfully", 
-                LoginResponse.from(user)))
-            .orElseGet(() -> loginConflict(
-                AuthCode.INVALID_CREDENTIALS, 
-                "Incorrect username or password"));
+                .map(user -> accountLogin(
+                        AuthCode.LOGIN_SUCCESS,
+                        "User logged in successfully",
+                        LoginResponse.from(user)))
+                .orElseGet(() -> loginConflict(
+                        AuthCode.INVALID_CREDENTIALS,
+                        "Incorrect username or password"));
     }
 
-    private ResponseEntity<ApiResponse<RegisterResponse>> accountCreated(ResultCode code, String message, RegisterResponse data) {
+    private ResponseEntity<ApiResponse<RegisterResponse>> accountCreated(ResultCode code, String message,
+            RegisterResponse data) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(code, message, data));
     }
 
@@ -55,11 +56,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponse.error(code, message));
     }
 
-    private ResponseEntity<ApiResponse<LoginResponse>> accountLogin(ResultCode code, String message, LoginResponse data){
+    private ResponseEntity<ApiResponse<LoginResponse>> accountLogin(ResultCode code, String message,
+            LoginResponse data) {
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.ok(code, message, data));
     }
-    
-    private ResponseEntity<ApiResponse<LoginResponse>> loginConflict(ResultCode code, String message){
+
+    private ResponseEntity<ApiResponse<LoginResponse>> loginConflict(ResultCode code, String message) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error(code, message));
     }
 }
