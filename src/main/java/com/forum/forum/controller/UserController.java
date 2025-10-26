@@ -32,7 +32,6 @@ public class UserController {
                 .orElseGet(() -> registerConflict(
                         RegistrationCode.USERNAME_EXISTS,
                         "Username exists"));
-
     }
 
     @PostMapping("/login")

@@ -1,0 +1,65 @@
+commit 3d35cdb77230b73d6b79a5a5f3bc3474abb3dcb5
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Tue Oct 7 18:07:20 2025 -0400
+
+    Update new feature post
+
+commit 3ef30509536301e0b2d1b3660d181c879be4c393
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Sun Oct 5 17:45:55 2025 -0400
+
+    JSONstuck
+
+commit b9ac5f22347f40b8310b3bbd8034e0e154a77a5e
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Tue Sep 30 13:46:35 2025 -0400
+
+    Format update
+
+commit 3ad8a014aac69a5331cb2e80e7498fecb239ad02
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Sat Sep 27 09:46:39 2025 -0400
+
+    Update the H2 connection
+
+commit 55e7fb11730093c29ed5f70cacb63be7aac8b213
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Fri Sep 26 12:51:14 2025 -0400
+
+    Rename package module -> entity
+
+commit 88aecf90649140bdc5cd36e6944dcbf2a41ee851
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Fri Sep 26 09:48:16 2025 -0400
+
+    Restore plain register and login feature
+
+commit 24187153e1540b6a1f22b7bd4bd16ef8ff26e945
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Sun Sep 21 15:39:26 2025 -0400
+
+    Update register and login feature
+
+commit d5c23c57ff5f2a133edf9961e461ccff9cc9f39c
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Sun Sep 14 18:03:05 2025 -0400
+
+    Update register and login features
+
+commit 4c487997413789744d08e6ea4b50914e7ef44c6f
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Sun Sep 14 17:14:21 2025 -0400
+
+    Remove HealthCheckController from the project
+
+commit c265d24b3bb111bfcbd06a002fe4de544ae3862d
+Author: A1eXander-Code <alexanderforenterprise@gmail.com>
+Date:   Sun Sep 14 15:06:49 2025 -0400
+
+    Create README.md
+
+commit a2283e9e96159cecb63dbbe4bd20ab9ea286c41d
+Author: gmailwork <alexanderforenterprise@gmail.com>
+Date:   Wed Sep 10 15:54:15 2025 -0400
+
+    First Commit
