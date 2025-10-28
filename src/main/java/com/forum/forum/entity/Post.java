@@ -2,6 +2,7 @@ package com.forum.forum.entity;
 
 import java.util.List;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,4 +30,18 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
+
+    @Builder
+    private static Post build(String postTitle, String postContent, User user) {
+        if (postTitle == null || postTitle.isBlank())
+            throw new IllegalArgumentException("Post title needed");
+        if (postContent == null || postContent.isBlank())
+            throw new IllegalArgumentException("Post content needed");
+        Post p = new Post();
+        p.postTitle = postTitle;
+        p.postContent = postContent;
+        p.user = user;
+        return p;
+    }
+
 }

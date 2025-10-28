@@ -2,6 +2,7 @@ package com.forum.forum.service;
 
 import java.util.Optional;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.forum.forum.entity.User;
@@ -10,6 +11,9 @@ import com.forum.forum.dto.DeletePostRequest;
 import com.forum.forum.entity.Post;
 import com.forum.forum.repository.PostRepository;
 import com.forum.forum.repository.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import com.forum.forum.repository.CommentRepository;
 
 @Service
@@ -30,27 +34,20 @@ public class PostService {
         long userId = request.getUserId();
         String postTitle = request.getPostTitle();
         String postContent = request.getPostContent();
-        Optional<User> userOpt = userRepository.findById(userId);
-        User user = userOpt.get();
-        Post newPost = new Post();
-        newPost.setPostTitle(postTitle);
-        newPost.setPostContent(postContent);
-        newPost.setUser(user);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User " + userId + " not found"));
+        Post newPost = Post.builder().postTitle(postTitle).postContent(postContent).user(user).build();
 
         return Optional.of(postRepository.save(newPost));
     }
 
     public void deletePost(DeletePostRequest request) {
         long postId = request.getPostId();
-        Optional<Post> postOpt = postRepository.findById(postId);
-        Post deletePost = postOpt.get();
-        postRepository.delete(deletePost);
-    }
+        try {
+            postRepository.deleteById(postId);
+        } catch (EmptyResultDataAccessException ignore) {
 
-    /*
-     * public ? searchPostById(long postId) {
-     * 
-     * 
-     * }
-     */
+        }
+    }    
 }
