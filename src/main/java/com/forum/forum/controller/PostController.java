@@ -9,6 +9,8 @@ import com.forum.forum.dto.ApiResponse;
 import com.forum.forum.dto.CreatePostRequest;
 import com.forum.forum.dto.DeletePostRequest;
 import com.forum.forum.service.PostService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,7 +25,7 @@ public class PostController {
         postService.createPost(createPostRequest);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public void DeletePostResponse(@RequestBody DeletePostRequest deletePostRequest) {
         postService.deletePost(deletePostRequest);
     }
