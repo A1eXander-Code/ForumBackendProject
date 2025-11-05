@@ -17,7 +17,7 @@ public class Comment {
     @Column(name = "comment_id")
     private long commentId;
 
-    @Column(name = "conmment_content", nullable = false, length = 255)
+    @Column(name = "comment_content", nullable = false, length = 255)
     private String commentContent;
 
     @ManyToOne

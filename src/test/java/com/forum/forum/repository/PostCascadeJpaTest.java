@@ -31,7 +31,7 @@ public class PostCascadeJpaTest {
         Comment comment2 = new Comment();
         comment2.setCommentContent("Comment 2");
 
-        post.setComments(List.of(comment1, comment2));
+        post.setComments(new java.util.ArrayList<>(java.util.List.of(comment1, comment2)));
         comment1.setPost(post);
         comment2.setPost(post);
 
@@ -42,7 +42,7 @@ public class PostCascadeJpaTest {
         long beforeCount = commentRepository.countByPostId(postId);
         assertThat(beforeCount).isEqualTo(2);
         
-        postRepository.deletdeleteByPostId(postId);
+        postRepository.deleteById(postId);
         em.flush(); em.clear();
 
         assertThat(postRepository.findById(postId)).isEmpty();

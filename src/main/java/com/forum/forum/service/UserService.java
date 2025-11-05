@@ -2,6 +2,7 @@ package com.forum.forum.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.forum.forum.controller.UserController;
@@ -9,6 +10,8 @@ import com.forum.forum.dto.UserLoginRequest;
 import com.forum.forum.dto.UserRegisterRequest;
 import com.forum.forum.entity.User;
 import com.forum.forum.repository.UserRepository;
+
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -40,17 +43,7 @@ public class UserService {
             return Optional.empty();
         }
 
-        Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
-
-        if (!userOpt.isEmpty()) {
-            User user = userOpt.get();
-            if (user.getPassword().equals(request.getPassword())) {
-                return userOpt;
-            } else {
-                return Optional.empty();
-            }
-        } else {
-            return Optional.empty();
-        }
+        return userRepository.findByUsername(request.getUsername())
+            .filter(u -> Objects.equals(u.getPassword(), request.getPassword()));
     }
 }
