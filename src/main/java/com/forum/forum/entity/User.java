@@ -13,6 +13,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
+    public User(String username, String password) {
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
