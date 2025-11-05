@@ -16,6 +16,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     long countByPost_PostId(long postId);
 
-    boolean existsByPostId(long postId);
-    
+    boolean existsByPost_PostId(long postId);
 }
