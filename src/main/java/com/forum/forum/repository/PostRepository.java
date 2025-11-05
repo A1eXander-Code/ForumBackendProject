@@ -17,4 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     boolean existsByPostTitle(String postTitle);
 
     Optional<Post> findByPostTitle(String postTitle);
+
+    void deletdeleteByPostId(long postId);
 }
