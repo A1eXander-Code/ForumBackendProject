@@ -32,9 +32,11 @@ public class UserServiceTest {
         userLoginRequest.setUsername("Bob");
         userLoginRequest.setPassword("passwordBob");
 
+        // no var
         var result = userService.login(userLoginRequest);
-
+        
         assertTrue(result.isPresent());
+        // not safe
         assertEquals("Bob", result.get().getUsername());
         verify(userRepository).findByUsername("Bob");
     }
