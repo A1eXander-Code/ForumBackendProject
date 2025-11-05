@@ -14,7 +14,7 @@ env:
   # 👉 change "your-repo" to your Docker Hub repo name
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/test_repo_cicd
   # 👉 change if your app listens on a different internal port
-  APP_PORT: "8081"
+  APP_PORT: "8080"
   # 👉 change container name if you like
   CONTAINER_NAME: "myapp"
 
@@ -168,10 +168,19 @@ jobs:
               sudo docker rm -f "${NAME}"
             fi
 
-            # Run container
-            # Map host port 80 -> container $APP_PORT; edit if needed
+            # Write env file (prod)
+            sudo bash -c "cat > '${ENV_FILE}' <<'EOF'
+            SPRING_PROFILES_ACTIVE=prod
+            SPRING_DATASOURCE_URL=${{ secrets.DB_URL }}
+            SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USER }}
+            SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }}
+            SERVER_PORT=8080
+            EOF"
+            sudo chmod 600 "${ENV_FILE}"
+
+            # Run container: map host 80 -> container 8080 (matches SERVER_PORT)
             sudo docker run -d --name "${NAME}" \
-              -p 80:${APP_PORT} \
+              -p 80:8080 \
               --restart unless-stopped \
               --env-file "${ENV_FILE}" \
               "${IMAGE}"
