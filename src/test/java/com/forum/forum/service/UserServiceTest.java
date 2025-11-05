@@ -21,6 +21,7 @@ public class UserServiceTest {
 
     @Test
     void login_success_return_OptionalUser() {
+        when(userRepository.existsByUsername("Bob")).thenReturn(true);
         when(userRepository.findByUsername("Bob"))
             .thenReturn(Optional.of(new User("Bob", "passwordBob")));
         
