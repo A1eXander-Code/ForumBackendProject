@@ -14,7 +14,7 @@ env:
   # 👉 change "your-repo" to your Docker Hub repo name
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/test_repo_cicd
   # 👉 change if your app listens on a different internal port
-  APP_PORT: "8080"
+  APP_PORT: "8081"
   # 👉 change container name if you like
   CONTAINER_NAME: "myapp"
 
