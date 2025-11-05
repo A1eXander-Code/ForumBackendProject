@@ -39,13 +39,13 @@ public class PostCascadeJpaTest {
         em.flush(); em.clear();
 
         long postId = post.getPostId();
-        long beforeCount = commentRepository.countByPost_PostId(postId);
+        long beforeCount = commentRepository.countByPost_Id(postId);
         assertThat(beforeCount).isEqualTo(2);
         
         postRepository.deleteById(postId);
         em.flush(); em.clear();
 
         assertThat(postRepository.findById(postId)).isEmpty();
-        assertThat(commentRepository.countByPost_PostId(postId)).isZero();
+        assertThat(commentRepository.countByPost_Id(postId)).isZero();
     }
 }
