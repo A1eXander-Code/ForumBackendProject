@@ -13,7 +13,7 @@ env:
   REGISTRY: docker.io
   # 👉 change "your-repo" to your Docker Hub repo name
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/test_repo_cicd
-  # 👉 change if your app listens on a different internal port
+  # 👉 internal app port (and published host port)
   APP_PORT: "8080"
   # 👉 change container name if you like
   CONTAINER_NAME: "myapp"
@@ -152,7 +152,7 @@ jobs:
             fi
             sudo systemctl start docker
 
-            # Create env directory if you plan to use an .env file on the server
+            # Create env directory and file
             sudo mkdir -p "${ENV_DIR}"
             sudo touch "${ENV_FILE}"
             sudo chmod 600 "${ENV_FILE}"
@@ -168,23 +168,22 @@ jobs:
               sudo docker rm -f "${NAME}"
             fi
 
-            # Write env file (prod)
+            # Write env file (prod) — keep app listening on APP_PORT
             sudo bash -c "cat > '${ENV_FILE}' <<'EOF'
             SPRING_PROFILES_ACTIVE=prod
             SPRING_DATASOURCE_URL=${{ secrets.DB_URL }}
             SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USER }}
             SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }}
-            SERVER_PORT=8080
+            SERVER_PORT=${{ env.APP_PORT }}
             EOF"
             sudo chmod 600 "${ENV_FILE}"
 
-            # Run container: map host 80 -> container 8080 (matches SERVER_PORT)
+            # Run container: map host ${APP_PORT} -> container ${APP_PORT}
             sudo docker run -d --name "${NAME}" \
-              -p 80:8080 \
+              -p ${APP_PORT}:${APP_PORT} \
               --restart unless-stopped \
               --env-file "${ENV_FILE}" \
               "${IMAGE}"
 
             # Clean up old images
             sudo docker image prune -f
-
