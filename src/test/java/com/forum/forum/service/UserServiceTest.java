@@ -22,8 +22,11 @@ public class UserServiceTest {
     @Test
     void login_success_return_OptionalUser() {
         when(userRepository.existsByUsername("Bob")).thenReturn(true);
+        User newUser = new User();
+        newUser.setUsername("Bob");
+        newUser.setPassword("passwordBob");
         when(userRepository.findByUsername("Bob"))
-            .thenReturn(Optional.of(new User("Bob", "passwordBob")));
+            .thenReturn(Optional.of(newUser));
         
         UserLoginRequest userLoginRequest = new UserLoginRequest();
         userLoginRequest.setUsername("Bob");
